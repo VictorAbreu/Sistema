@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<head>
+<meta charset="UTF-8">
+
+
+<title>Sistema</title>
+
+<style type="text/css">
+table.striped>tbody>tr:nth-child(odd) {
+	background-color: rgba(158, 154, 154, 0.5);
+}
+
+form input[type=submit] {
+ color: white;
+}
+</style>
+
+
+</head>
+<body>
+
+<form th:object="${clienteobj}" class="login-form" action="salvarcliente" method="post" id="formcliente">
+
+
+
+	<h4>Cadastro de clientes</h4>
+	
+	<br>
+	
+		<div th:each="m : ${msg}">
+		
+			<span th:text="${m}"></span>
+		
+		</div>
+	
+	</br>
+	
+	<!-- sec:authorize="hasRole('ROLE_ADMIN')" => Ocultar um elemento html conforme a role, Para vários utilizar
+	hasAnyRole e separar por" , " -->
+
+		<div class="col s12 z-depth-6 card-panel">
+				<div class="row margin">
+				
+				<div class="input-field col s12">
+
+						<label for="id" data-error="wrong" data-success="right"
+							class="center-align active">ID</label> 
+							<input class="validate" id="id" name="id" type="text" th:field="*{id}" readonly="true">
+
+					</div>
+				
+				
+				
+				
+					<div class="input-field col s6">
+
+						<label for="nome" data-error="wrong" data-success="right"
+							class="center-align active" >Nome</label> 
+							
+							<input class="validate" id="nome" name="nome" type="text" th:field="*{nome}">
+
+					</div>
+					
+					<div class="input-field col s6">
+						<label for="email" data-error="wrong" data-success="right"
+							class="center-align active">E-mail</label> 
+							<input class="validate" id="email" name="email" type="text" th:field="*{email}">
+					</div>
+					
+					
+
+					<div class="input-field col s12">
+					
+					<button class="waves-effect waves-light btn" onclick="document.getElementById('formcliente').reset();">Novo</button>
+						<input class="waves-effect waves-light btn" type="submit" value="salvar"/>
+						
+					</div>
+	
+	</div>
+	</div>
+</form>
+
+
+	<div class="row margin">
+		<form action="pesquisarcliente" method="post">
+
+
+			<div class="input-field col s12">
+				<label for="pesquisa" data-error="wrong" data-success="right"
+					class="center-align active">Pesquisar Cliente</label> <input
+					class="validate" id="pesquisa" name="nomepesquisa" type="text">
+			</div>
+
+			<div class="input-field col s12">
+				<input class="waves-effect waves-light btn" type="submit"
+					value="Pesquisar">
+			</div>
+
+		</form>
+	</div>
+
+	<table class="highlight">
+	
+	<th>ID</th>
+	<th>Nome</th>
+	<th>E-mail</th>
+	<th>Pagamento</th>
+	<th>Editar</th>
+	<th>Excluir</th>
+	
+		<tr th:each="cliente : ${clientes}">
+
+			<td th:text="${cliente.id}"></td>
+			<td th:text="${cliente.nome}"></td>
+			<td th:text="${cliente.email}"></td>
+			<td><a class="waves-effect waves-light btn blue" th:href="@{/pagamentocliente/{idcliente}(idcliente=${cliente.id})}">Pagamento</a></td>
+			<td><a class="waves-effect waves-light btn orange" th:href="@{/editarcliente/{idcliente}(idcliente=${cliente.id})}">Editar</a></td>
+			<td><a class="waves-effect waves-light btn red" th:href="@{/excluircliente/{idcliente}(idcliente=${cliente.id})}">Excluir</a></td>
+
+		</tr>
+
+	</table>
+	
+</body>
+</html>

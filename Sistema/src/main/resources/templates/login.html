@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+	
+<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<title>Sistema</title>
+<style type="text/css">
+table.striped>tbody>tr:nth-child(odd) {
+	background-color: rgba(158, 154, 154, 0.5);
+}
+
+form input[type=submit] {
+ color: white;
+}
+</style>
+</head>
+<body>
+
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+
+	<div class="row">
+		<div class="col s12 m8 l4 offset-m2 offset-l4">
+			<div class="card">
+					<div class="card-action teal lighten-1 white-text" align="center">
+						<h3>Acesso ao Sistema</h3>
+					</div>
+			<div class="card-content">
+				<form th:action="@{/login}" method="post">
+					
+						<div class="form-field">
+							<label for="username">Usuário</label> 
+							<input type='text' name='username'>
+						</div>
+						<br>
+
+						<div class="form-field">
+							<label for="password">Senha</label> 
+							<input type='password' name='password'>
+						</div>
+						<br>
+
+
+						<div class="form-field">
+							<input name="Acessar" value="Acessar" type="submit" class="btn-large waves-effect waves-dark" style="width: 100%;"></input>
+						</div>
+						
+				</form>
+						<br>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+
+
+</body>
+</html>

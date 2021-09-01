@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<head>
+<meta charset="UTF-8">
+
+
+<title>Sistema</title>
+
+<style type="text/css">
+table.striped>tbody>tr:nth-child(odd) {
+	background-color: rgba(158, 154, 154, 0.5);
+}
+
+form input[type=submit] {
+ color: white;
+}
+</style>
+</head>
+<body>
+
+	<h4>Pagamentos Cliente</h4>
+
+
+
+			<div class="row margin col s12 z-depth-6 card-panel" th:each="c : ${clienteobj}">
+
+				<div class="input-field col s6">
+
+					<label for="id" data-error="wrong" data-success="right" class="center-align active">ID</label>
+					<input class="validate" id="id" name="id" type="text" th:text="${c.id}" readonly="true">
+
+				</div>
+				
+				
+				<div class="input-field col s6">
+
+					<label for="nome" data-error="wrong" data-success="right" class="center-align active">Cliente</label>
+					<input class="validate" id="nome" name="nome" type="text"  th:text="${c.nome}" readonly="true">
+					
+				</div>
+			</div>
+		
+		
+		<div class="row">
+		<form th:action="@{/pagamentocliente/{clienteid}(clienteid=${clienteobj.id})}" method="post" class="col s12">
+
+		<div class="input-field col s12">
+
+			<label for="descricao" data-error="wrong" data-success="right"
+				class="center-align active">Descrição</label> <input class="validate"
+				id="descricao" name="descricao" type="text">
+
+		</div>
+		
+		<input class="btn-large waves-effect waves-dark" type="submit" value="Adicionar">
+
+		<a class="btn-large waves-effect waves-dark" href="/cadastrocliente">Voltar</a>
+
+
+	</form>
+	
+	</div>
+		
+		
+	<br>
+	<table class="highlight">
+
+		<th>ID</th>
+		<th>Descrição</th>
+		<th>Editar</th>
+		<th>Excluir</th>
+
+		<tr th:each="pagto : ${pagamentos}">
+
+			<td th:text="${pagto.id}"></td>
+			<td th:text="${pagto.descricao}"></td>
+			<td><a class="waves-effect waves-light btn orange">Editar</a></td>
+			<td><a class="waves-effect waves-light btn red" th:href="@{/excluirpagamento/{idpagamento}(idpagamento=${pagto.id})}">Excluir</a></td>
+
+		</tr>
+
+	</table>
+
+</body>
+</html>
