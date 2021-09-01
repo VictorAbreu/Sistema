@@ -28,6 +28,13 @@ public class Cliente  implements Serializable{
 	@NotEmpty(message="Nome não pode ser vazio!")
 	private String nome;
 	private String email;
+	private String celular;
+	private String telefone;
+	private String rua;
+	private String bairro;
+	private String cidade;
+	private String cep;
+	
 	
 	@OneToMany(mappedBy="cliente", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Pagamento> pagamento;
@@ -56,6 +63,42 @@ public class Cliente  implements Serializable{
 	}
 	public void setPagamento(List<Pagamento> pagamento) {
 		this.pagamento = pagamento;
+	}
+	public String getCelular() {
+		return celular;
+	}
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	public String getRua() {
+		return rua;
+	}
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+	public String getBairro() {
+		return bairro;
+	}
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 	
 	
