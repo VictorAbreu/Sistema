@@ -50,6 +50,8 @@ public class ClienteController {
 	@RequestMapping(method = RequestMethod.POST, value = "**/salvarcliente")
 	public ModelAndView salvar(@Valid Cliente cliente, BindingResult bindingResult) {//@Valid e BindingResult retornam a mensagem de erro sobre validação
 
+		cliente.setPagamento(pagamentoRepository.getPagamentos(cliente.getId()));
+		
 		if(bindingResult.hasErrors()) {/*Se houver erros de validação entra nessa condição*/
 			
 			ModelAndView andView = new ModelAndView("cadastro/cadastrocliente");
