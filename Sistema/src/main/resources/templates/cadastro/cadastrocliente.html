@@ -5,11 +5,20 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
+	
+	<!-- Adicionando JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+	
+	
 <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    
 
 <head>
 <meta charset="UTF-8">
@@ -79,6 +88,48 @@ form input[type=submit] {
 							<input class="validate" id="email" name="email" type="text" th:field="*{email}">
 					</div>
 					
+					<div class="input-field col s4">
+						<label for="celular" data-error="wrong" data-success="right"
+							class="center-align active">Celular</label> 
+							<input class="validate" id="celular" name="celular" type="text" th:field="*{celular}">
+					</div>
+					
+					<div class="input-field col s4">
+						<label for="telefone" data-error="wrong" data-success="right"
+							class="center-align active">Telefone</label> 
+							<input class="validate" id="telefone" name="telefone" type="text" th:field="*{telefone}">
+					</div>
+					
+					<div class="input-field col s4">
+						<label for="cep" data-error="wrong" data-success="right"
+							class="center-align active">Cep</label> 
+							<input class="validate" id="cep" name="cep" type="text" th:field="*{cep}">
+					</div>
+					
+					
+					<div class="input-field col s5">
+						<label for="rua" data-error="wrong" data-success="right"
+							class="center-align active">Rua</label> 
+							<input class="validate" id="rua" name="rua" type="text" th:field="*{rua}">
+					</div>
+					
+					<div class="input-field col s1">
+						<label for="numero" data-error="wrong" data-success="right"
+							class="center-align active">Número</label> 
+							<input class="validate" id="numero" name="numero" type="text" th:field="*{numero}">
+					</div>
+					
+					<div class="input-field col s2">
+						<label for="bairro" data-error="wrong" data-success="right"
+							class="center-align active">Bairro</label> 
+							<input class="validate" id="bairro" name="bairro" type="text" th:field="*{bairro}">
+					</div>
+					
+					<div class="input-field col s4">
+						<label for="cidade" data-error="wrong" data-success="right"
+							class="center-align active">Cidade</label> 
+							<input class="validate" id="cidade" name="cidade" type="text" th:field="*{cidade}">
+					</div>
 					
 
 					<div class="input-field col s12">
@@ -132,6 +183,70 @@ form input[type=submit] {
 		</tr>
 
 	</table>
+	
+	
+	<!-- Adicionando Javascript -->
+    <script>
+
+        $(document).ready(function() {
+
+            function limpa_formulário_cep() {
+                // Limpa valores do formulário de cep.
+                $("#rua").val("");
+                $("#bairro").val("");
+                $("#cidade").val("");
+            }
+            
+            //Quando o campo cep perde o foco.
+            $("#cep").blur(function() {
+
+                //Nova variável "cep" somente com dígitos.
+                var cep = $(this).val().replace(/\D/g, '');
+
+                //Verifica se campo cep possui valor informado.
+                if (cep != "") {
+
+                    //Expressão regular para validar o CEP.
+                    var validacep = /^[0-9]{8}$/;
+
+                    //Valida o formato do CEP.
+                    if(validacep.test(cep)) {
+
+                        //Preenche os campos com "..." enquanto consulta webservice.
+                        $("#rua").val("...");
+                        $("#bairro").val("...");
+                        $("#cidade").val("...");
+
+                        //Consulta o webservice viacep.com.br/
+                        $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                            if (!("erro" in dados)) {
+                                //Atualiza os campos com os valores da consulta.
+                                $("#rua").val(dados.logradouro);
+                                $("#bairro").val(dados.bairro);
+                                $("#cidade").val(dados.localidade);
+                            } //end if.
+                            else {
+                                //CEP pesquisado não foi encontrado.
+                                limpa_formulário_cep();
+                                alert("CEP não encontrado.");
+                            }
+                        });
+                    } //end if.
+                    else {
+                        //cep é inválido.
+                        limpa_formulário_cep();
+                        alert("Formato de CEP inválido.");
+                    }
+                } //end if.
+                else {
+                    //cep sem valor, limpa formulário.
+                    limpa_formulário_cep();
+                }
+            });
+        });
+
+    </script>
 	
 </body>
 </html>

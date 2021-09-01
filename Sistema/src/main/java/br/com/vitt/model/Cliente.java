@@ -34,6 +34,7 @@ public class Cliente  implements Serializable{
 	private String bairro;
 	private String cidade;
 	private String cep;
+	private String numero;
 	
 	
 	@OneToMany(mappedBy="cliente", orphanRemoval = true, cascade = CascadeType.ALL)
@@ -99,6 +100,12 @@ public class Cliente  implements Serializable{
 	}
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	public String getNumero() {
+		return numero;
+	}
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 	
 	
