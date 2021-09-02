@@ -35,6 +35,7 @@ public class Cliente  implements Serializable{
 	private String cidade;
 	private String cep;
 	private String numero;
+	private String tipo;
 	
 	
 	@OneToMany(mappedBy="cliente", orphanRemoval = true, cascade = CascadeType.ALL)
@@ -106,6 +107,12 @@ public class Cliente  implements Serializable{
 	}
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
 	

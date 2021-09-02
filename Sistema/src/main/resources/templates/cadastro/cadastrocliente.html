@@ -68,12 +68,20 @@ form input[type=submit] {
 							class="center-align active">ID</label> 
 							<input class="validate" id="id" name="id" type="text" th:field="*{id}" readonly="true">
 
-					</div>
-				
-				
-				
-				
-					<div class="input-field col s6">
+				</div>
+
+				<div class="input-field col s4">
+					<select th:field="*{tipo}">
+						<option value="" disabled selected>Selecione uma opção</option>
+						<option value="SISTEMAS">Sistemas</option>
+						<option value="SUPORTE">Suporte</option>
+						<option value="OUTROS">Outros</option>
+					</select> <label>Tipo de Cliente</label>
+				</div>
+
+
+
+				<div class="input-field col s8">
 
 						<label for="nome" data-error="wrong" data-success="right"
 							class="center-align active" >Nome</label> 
@@ -88,26 +96,26 @@ form input[type=submit] {
 							<input class="validate" id="email" name="email" type="text" th:field="*{email}">
 					</div>
 					
-					<div class="input-field col s4">
+					<div class="input-field col s3">
 						<label for="celular" data-error="wrong" data-success="right"
 							class="center-align active">Celular</label> 
 							<input class="validate" id="celular" name="celular" type="text" th:field="*{celular}">
 					</div>
 					
-					<div class="input-field col s4">
+					<div class="input-field col s3">
 						<label for="telefone" data-error="wrong" data-success="right"
 							class="center-align active">Telefone</label> 
 							<input class="validate" id="telefone" name="telefone" type="text" th:field="*{telefone}">
 					</div>
 					
-					<div class="input-field col s4">
+					<div class="input-field col s2">
 						<label for="cep" data-error="wrong" data-success="right"
 							class="center-align active">Cep</label> 
 							<input class="validate" id="cep" name="cep" type="text" th:field="*{cep}">
 					</div>
 					
 					
-					<div class="input-field col s5">
+					<div class="input-field col s4">
 						<label for="rua" data-error="wrong" data-success="right"
 							class="center-align active">Rua</label> 
 							<input class="validate" id="rua" name="rua" type="text" th:field="*{rua}">
@@ -125,7 +133,7 @@ form input[type=submit] {
 							<input class="validate" id="bairro" name="bairro" type="text" th:field="*{bairro}">
 					</div>
 					
-					<div class="input-field col s4">
+					<div class="input-field col s3">
 						<label for="cidade" data-error="wrong" data-success="right"
 							class="center-align active">Cidade</label> 
 							<input class="validate" id="cidade" name="cidade" type="text" th:field="*{cidade}">
@@ -246,7 +254,12 @@ form input[type=submit] {
             });
         });
 
+        
+        $(document).ready(function(){ $('select').formSelect(); });
+        
     </script>
+
 	
+
 </body>
 </html>
