@@ -40,9 +40,32 @@ form input[type=submit] {
 </head>
 <body>
 
+
+
+<nav>
+
+    <div class="nav-wrapper teal darken-2">
+      <a href="#" class="brand-logo right">Sistema de Pagamento</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+
+				<!-- Dropdown Trigger -->
+				<li><a class="dropdown-trigger" href="#!"
+					data-target="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+				<!-- Dropdown Structure -->
+				<ul id="dropdown1" class="dropdown-content">
+					<li><a href="#!">one</a></li>
+					<li><a href="#!">two</a></li>
+					<li class="divider"></li>
+					<li><a href="#!">three</a></li>
+				</ul>
+
+				<li><a href="sass.html">Home</a></li>
+        <li><a href="/logout">Sair</a></li>
+      </ul>
+    </div>
+  </nav>
+
 <form th:object="${clienteobj}" class="login-form" action="salvarcliente" method="post" id="formcliente">
-
-
 
 	<h4>Cadastro de clientes</h4>
 	
@@ -53,8 +76,6 @@ form input[type=submit] {
 			<span th:text="${m}"></span>
 		
 		</div>
-	
-	</br>
 	
 	<!-- sec:authorize="hasRole('ROLE_ADMIN')" => Ocultar um elemento html conforme a role, Para vários utilizar
 	hasAnyRole e separar por" , " -->
@@ -256,6 +277,8 @@ form input[type=submit] {
 
         
         $(document).ready(function(){ $('select').formSelect(); });
+        
+        $(".dropdown-trigger").dropdown();
         
     </script>
 
