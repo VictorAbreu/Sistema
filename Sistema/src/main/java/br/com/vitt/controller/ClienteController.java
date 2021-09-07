@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class ClienteController {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ReportUtil reportUtil;
 
 	@RequestMapping(method = RequestMethod.GET, value = "cadastrocliente")
 	public ModelAndView inicio() {
@@ -191,6 +196,47 @@ public class ClienteController {
 
 		return modelAndView;
 
+	}
+	
+	
+	@GetMapping("**/pesquisarcliente")
+	public void imprimirPDF(@RequestParam("nomepesquisa") String nomepesquisa, 
+							HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		if(nomepesquisa != null && !nomepesquisa.isEmpty()) {
+			
+			clientes = clienteRepository.findClienteByName(nomepesquisa);/*Busca por nome*/
+			
+		}else {
+			
+			Iterable<Cliente> iterator = clienteRepository.findAll();/* Busca todos*/
+			
+			for (Cliente cliente : iterator) {
+				
+				clientes.add(cliente);
+				
+			}
+			
+		}
+		
+		/*Chama o serviço que faz a geração do relatório*/
+		byte[] pdf = reportUtil.geraRelatorio(clientes, "clientes", request.getServletContext());
+		
+		/*Tamanho da resposta para  navegador*/
+		response.setContentLength(pdf.length);
+		
+		/*Definir na resposta o tipo de arquivo*/
+		response.setContentType("application/octet-stream");
+		
+		/*Definir o cabeçalho da resposta*/
+		String headerKey = "Content-Disposition";
+		String headerValue = String.format("attachment; filename=\"%s\"", "relatorio.pdf");
+		response.setHeader(headerKey, headerValue);
+		
+		/*Finaliza a resposta para o navegador*/
+		response.getOutputStream().write(pdf);
+		
 	}
 
 }

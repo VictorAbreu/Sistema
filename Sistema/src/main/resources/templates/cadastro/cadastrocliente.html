@@ -174,7 +174,7 @@ form input[type=submit] {
 
 
 	<div class="row margin">
-		<form action="pesquisarcliente" method="post">
+		<form action="pesquisarcliente" method="post" id="pesquisarcliente">
 
 
 			<div class="input-field col s12">
@@ -185,8 +185,12 @@ form input[type=submit] {
 
 			<div class="input-field col s12">
 				<input class="waves-effect waves-light btn" type="submit"
-					value="Pesquisar">
+					value="Pesquisar" onclick="document.getElementById('pesquisarcliente').method = 'post'">
+					
+					<input class="waves-effect waves-light btn" type="submit"
+					value="Relatório PDF" onclick="document.getElementById('pesquisarcliente').method = 'get'">
 			</div>
+			
 
 		</form>
 	</div>
